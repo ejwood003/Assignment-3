@@ -1,0 +1,79 @@
+<!-- ETHAN WOOD -->
+<!-- IS 403 Section 2 -->
+<!-- Individual Assingment 3 -->
+<!-- DESCRIPTION -->
+    <!--This page lists all Pokémon from the database in a clean, 
+        Bootstrap-styled table.
+        It also includes a search bar that lets users look up 
+        and view details for a specific Pokémon.-->
+        
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pokemon List</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="container mt-5">
+
+            <h1 class="mb-4">Welcome to the Pokemon Database</h1>
+            
+            <!-- Display an error message if one exists -->
+            <% if (typeof error_message !== 'undefined' && error_message) { %>
+                <div class="alert alert-danger" role="alert">
+                    <!-- Output the error message passed from the server -->
+                    <%= error_message %>
+                </div>
+            <% } %>
+            
+            <!-- If there are no Pokémon in the database, show a warning message -->
+            <% if (pokemon.length === 0) { %>
+                <div class="alert alert-warning" role="alert">
+                    No pokemon found in the database.
+                </div>
+            <% } else { %>
+                <!-- Otherwise, display table of Pokémon data -->
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <!-- Table headers for Pokémon details -->
+                            <th>Description</th>
+                            <th>Base Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Loop through each Pokémon object in the array -->
+                        <% for (let iCount = 0; iCount < pokemon.length; iCount++) { %>
+                            <tr>
+                                <!-- Display Pokémon info -->
+                                <td><%= pokemon[iCount].description %></td>
+                                <td><%= pokemon[iCount].base_total %></td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            <% } %>
+            
+            <!-- Search form to look up a single Pokémon by name -->
+            <!-- Sends a GET request to the /searchPokemon route -->
+            <form action="/searchPokemon" method="get" class="mt-4"> 
+                <!-- Text input where user enters the Pokémon name -->
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    name="name" 
+                    placeholder="Enter Pokémon name" 
+                    required
+                >
+                <!-- Submit button that triggers the search -->
+                <button type="submit" class="btn btn-primary mt-2">Display a Pokémon</button>
+            </form>
+        </div>
+    </body>
+</html>   

@@ -1,0 +1,89 @@
+<!-- ETHAN WOOD -->
+<!-- IS 403 Section 2 -->
+<!-- Individual Assingment 3 -->
+<!-- DESCRIPTION -->
+    <!--This page displays details about a single Pokémon searched by the user, 
+        including its name, description, base total, and image.
+        If the Pokémon isn’t found, it shows a Poké Ball image and 
+        an error message instead.-->
+        
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon Info</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <!-- Light background, vertically and horizontally centered layout -->
+  <body class="bg-light d-flex align-items-center justify-content-center min-vh-100">
+    <div class="container">
+      
+      <!-- Increased max width and added padding for better layout -->
+      <div class="card shadow-lg mx-auto p-4" style="max-width: 700px;">
+        <div class="card-body text-center">
+
+          <!-- Check if a Pokémon object exists -->
+          <% if (pokemon) { %>
+
+            <!-- Display the Pokémon image -->
+            <!-- Uses the description as the image name, converts to lowercase -->
+            <!-- If the image isn't found, display the Poké Ball image instead -->
+            <img 
+              src="/images/<%= pokemon.description.toLowerCase() %>.jpg" 
+              alt="<%= pokemon.description %>" 
+              class="img-fluid mb-4"
+              style="max-height: 300px;"
+              onerror="this.src='/images/Poke_Ball.webp';"
+            />
+
+            <!-- Display the Pokémon name -->
+            <h1 class="card-title text-dark mb-4 display-5"><%= pokemon.description %></h1>
+
+            <!-- Display the Pokémon's base total stat -->
+            <p class="fs-4">
+              <strong>Base Total:</strong> <%= pokemon.base_total %>
+            </p>
+
+          <!-- If no Pokémon was found, show this fallback block -->
+          <% } else { %>
+
+            <!-- Display Poké Ball image when no Pokémon is found -->
+            <img 
+              src="/images/Poke_Ball.webp" 
+              alt="Pokéball" 
+              class="img-fluid mb-4" 
+              style="max-height: 300px;"
+            />
+
+            <!-- Display an error message in a Bootstrap alert box -->
+            <div class="alert alert-danger fs-4" role="alert">
+              <%= error_message %>
+            </div>
+
+          <% } %>
+
+          <!-- "Back to List" button -->
+          <div class="d-grid mt-4">
+            <a href="/pokemon" class="btn btn-lg btn-primary py-3">Back to List</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JavaScript for functionality (optional, e.g., modals or alerts) -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
